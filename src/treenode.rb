@@ -1,9 +1,8 @@
 
 # vim: et
 
-require_relative '../core/keymaker'
-
 require_relative 'keyaction'
+require_relative 'keymaker'
 require_relative 'string'
 require_relative 'term'
 
@@ -15,7 +14,7 @@ module Tui
   class TreeNode
     attr_accessor :parent, :depth, :model, :key, :nodes, :keygen, :done
 
-    ROOT_LABEL = 'dome'
+    ROOT_LABEL = 'root'
 
     # Ensapsulates properties and behaviour of information line in the subtree
     # rendering, such as shortcut keys, number of not displayed items, etc.
@@ -110,10 +109,10 @@ module Tui
       if not @keymaker.nil?
         inverse = Hash.new
         @keymaker.make.each do |key, model|
-          inverse[model.label.to_s] = key
+          inverse[@idr.call( model )] = key
         end
         @nodes.each do |node|
-          node.key = inverse[node.model.label.to_s]
+          node.key = inverse[@idr.call( node.model )]
         end
         @keymaker = nil
       end
@@ -129,7 +128,7 @@ module Tui
     protected
     def label ( filter, filterinf = true, key = true, count = true )
       # Render the key and the label 
-      result = @model.nil? ? ROOT_LABEL : @model.label.to_s
+      result = @model.nil? ? ROOT_LABEL : @idr.call( @model )
       if key
         result = "[".gray42 + @key[filter.length..-1].orange + "]".gray42 + " " + result
       end

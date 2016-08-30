@@ -12,8 +12,8 @@ module Tui
 
     # Constructor.
     public
-    def initialize ( )
-      super( nil )
+    def initialize ( label = nil )
+      super( label )
     end # initialize
  
     # NOOP at this level
