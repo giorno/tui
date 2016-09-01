@@ -5,7 +5,7 @@ require_relative 'base'
 
 module Tui module Model
 
-  # Model for string objects.
+  # Model for integer number objects.
   class Integer < Base
 
     # Constructor.
