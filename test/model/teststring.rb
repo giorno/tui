@@ -24,6 +24,7 @@ class StringModelTestCase < Test::Unit::TestCase
 
   # Test the validation method.
   def test_valid?
+    assert_raise( RuntimeError ) { Tui::Model::String.new( 'lab1', 1 ) }
     base = Tui::Model::String.new( 'lab1' )
     assert_false base.valid?( 1 )
     assert_true base.valid?( "A" )

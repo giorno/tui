@@ -6,23 +6,23 @@ require_relative 'base'
 module Tui module Model
 
   # Model for string objects.
-  class String < Base
+  class Integer < Base
 
     # Constructor.
     public
-    def initialize ( label, value = '' )
+    def initialize ( label, value = 0 )
       super( label, value )
       self.value = value # validation step
     end # initialize
 
-    # Check if the provided value is indeed a string.
+    # Check if the provided value is indeed an integer.
     # @override
     public
     def valid? ( value )
-      return value.is_a? ::String
+      return value.is_a? ::Integer
     end # valid?
 
-  end # String
+  end # Integer
 
 end # ::Model
 end # ::Tui
