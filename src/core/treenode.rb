@@ -13,6 +13,7 @@ module Tui module Core
   # namespace.
   class TreeNode
     attr_accessor :parent, :depth, :model, :key, :nodes, :keygen, :done
+    attr_reader :idr
 
     ROOT_LABEL = 'root'
 
@@ -66,6 +67,10 @@ module Tui module Core
     #
     # @param model [Object] object rendered at this tree node
     # @param idr [Proc] lambda to provide textual representation of the object, unique within this node's parent
+    #
+    # @warning idrs in parent and its children should have consistent behaviour
+    # so that there are no issues connected with remapping of keys to labels
+    # when kassign is called
     public
     def initialize ( model, idr = lambda{ |i| return i.to_s } )
       super( )
@@ -87,7 +92,7 @@ module Tui module Core
       @nodes << node
       node.parent = self
       node.depth = node.parent.depth + 1 # cache the depth
-      if @keymaker.nil? then @keymaker = Tui::KeyMaker.new( @idr ) end # lazy initialization
+      if @keymaker.nil? then @keymaker = Tui::Core::KeyMaker.new( node.idr ) end # lazy initialization
       @keymaker << node.model
     end # append
 
@@ -205,11 +210,11 @@ module Tui module Core
     protected
     def onkeypress ( key )
       # left arrow or backspace: return
-      if ( key == Tui::Term::KEY_ARROW_LEFT or key == Tui::Term::KEY_BACKSPACE ) and onexit
+      if ( key == Tui::Core::Term::KEY_ARROW_LEFT or key == Tui::Core::Term::KEY_BACKSPACE ) and onexit
         @filter = ''
         return true
       # delete: erase filter
-      elsif not @filter.empty? and key == Tui::Term::KEY_DELETE
+      elsif not @filter.empty? and key == Tui::Core::Term::KEY_DELETE
         @filter = ''
       elsif @actions.include?( key ) # custom key action
         return @actions[key].func.call
@@ -233,10 +238,10 @@ module Tui module Core
       @done = false
       @filter = '' # key prefix to filter the subnodes on
       while not @done do
-        Tui::Term::clrscr
+        Tui::Core::Term::clrscr
         refresh
         render( true )
-        c = Tui::Term::getk
+        c = Tui::Core::Term::getk
         if onkeypress c then return end
         @nodes.each do |node|
           if node.key == @filter

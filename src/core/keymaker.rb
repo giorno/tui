@@ -76,6 +76,19 @@ module Tui module Core
         end
       end # make
 
+      # Recursively build a string representation of this node subtree
+      #
+      # @return [String]
+      public
+      def to_s
+        result = "\n0"
+        @nodes.each do |edge, node|
+          result += "\n " + edge
+          result += node.to_s # recurse
+        end
+        return result.gsub("\n", "\n ")
+      end # to_s
+
     end # Node
 
     # Constructor
@@ -115,6 +128,14 @@ module Tui module Core
       end
       return result
     end # make
+
+    # Get tree structure as a string
+    #
+    # @return [String]
+    public
+    def to_s
+      return @root.to_s
+    end # dump
 
   end # KeyMaker
 
