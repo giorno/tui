@@ -10,6 +10,16 @@ require_relative '../../src/model/base'
 
 class BaseModelTestCase < Test::Unit::TestCase
 
+  # Read-only base object to unblock testing.
+  class RoBaseIf < Tui::Model::Base
+
+    public
+    def valid? ( value )
+      return true
+    end # valid?
+
+  end # RoBase
+
   def setup
   end # setup
 
@@ -39,6 +49,13 @@ class BaseModelTestCase < Test::Unit::TestCase
     ex = assert_raise( RuntimeError ) { base.value = 1; }
     assert_equal( 'Method Tui::Model::Base::valid? not implemented!', ex.message )
   end # test_valid?
+
+  # Test the read-only setting
+  def test_ro
+    base = RoBaseIf.new( 'lab1', '', true )
+    ex = assert_raise( RuntimeError ) { base.value = 1; }
+    assert_equal( "Model 'lab1' is read-only", ex.message )
+  end # test_ro
 
 end # BaseModelTestCase
 

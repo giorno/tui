@@ -5,17 +5,19 @@ module Tui module Model
 
   # Base model.
   class Base
-    attr_accessor :label
+    attr_accessor :label, :ro
     attr_reader :value
 
     # Constructor
     #
     # @param label [String] model label
     # @param value [Mixed] model value
+    # @param ro [Boolean] marks model as read only
     public
-    def initialize ( label, value = nil )
+    def initialize ( label, value = nil, ro = false )
       @label = label
       @value = value
+      @ro = ro
     end # initialize
 
     # Setter with extra check for the value.
@@ -24,6 +26,7 @@ module Tui module Model
     public
     def value= ( val )
       raise "Invalid value for model type %s!" % self.class unless valid?( val )
+      raise "Model '%s' is read-only" % @label unless not @ro
       @value = val
     end # value=
 
