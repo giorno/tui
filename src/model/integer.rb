@@ -10,9 +10,11 @@ module Tui module Model
 
     # Constructor.
     public
-    def initialize ( label, value = 0 )
-      super( label, value )
-      self.value = value # validation step
+    def initialize ( label, value = 0, ro = false )
+      super( label, value, ro )
+      if not ro
+        self.value = value # validation step
+      end
     end # initialize
 
     # Check if the provided value is indeed an integer.
