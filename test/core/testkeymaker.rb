@@ -6,7 +6,7 @@ require 'ci/reporter/rake/test_unit_loader'
 require 'test/unit'
 require 'pp'
 
-require_relative '../src/keymaker'
+require_relative '../../src/core/keymaker'
 
 class KeyMakerTestCase < Test::Unit::TestCase
 
@@ -19,7 +19,7 @@ class KeyMakerTestCase < Test::Unit::TestCase
   # Check whether the tree is collapsed properly and the keys are generated
   # correctly.
   def test_keys
-    km = Tui::KeyMaker.new( lambda { |i| return i } )
+    km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
     km << 'core1'
     km << 'cpucore1'
     km << 'nic1'
@@ -30,7 +30,7 @@ class KeyMakerTestCase < Test::Unit::TestCase
     assert keys.has_key?( 'n' )
     assert keys.has_key?( 'cd' )
 
-    km = Tui::KeyMaker.new( lambda { |i| return i } )
+    km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
     km << 'cor'
     km << 'core1'
     km << 'core2'
@@ -59,7 +59,7 @@ class KeyMakerTestCase < Test::Unit::TestCase
   # Test the lambda passed to extract the label.
   def test_lambda
     func = lambda { |i| return i[0] }
-    km = Tui::KeyMaker.new( func )
+    km = Tui::Core::KeyMaker.new( func )
     km << [ 'core1' ]
     km << [ 'cpucore1' ]
     km << [ 'nic1' ]
@@ -73,7 +73,7 @@ class KeyMakerTestCase < Test::Unit::TestCase
 
   # Raise an exception when invalid label character is entered
   def test_valid
-    km = Tui::KeyMaker.new( lambda { |i| return i } )
+    km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
     #assert_throw( RuntimeError.new, "Not thrown" ) do km << 'cor 1' end
     assert_raise RuntimeError do
       km << 'cor 1'
@@ -89,7 +89,7 @@ class KeyMakerTestCase < Test::Unit::TestCase
 
   # Test that an assert is raised on a subsequent call to the .make() method.
   def test_made
-    km = Tui::KeyMaker.new( lambda { |i| return i } )
+    km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
     km << 'core1'
     keys = km.make
     assert keys.has_key?( 'c' )

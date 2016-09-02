@@ -6,12 +6,12 @@ require 'ci/reporter/rake/test_unit_loader'
 require 'test/unit'
 require 'pp'
 
-require_relative '../src/treenode'
+require_relative '../../src/core/treenode'
 
 class TreeNodeTestCase < Test::Unit::TestCase
 
   # Expose certain protected interfaces.
-  class TreeNodeIf < Tui::TreeNode
+  class TreeNodeIf < Tui::Core::TreeNode
     public
     def label ( filter, filterinf, key, count )
       return super

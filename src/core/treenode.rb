@@ -6,7 +6,7 @@ require_relative 'keymaker'
 require_relative 'string'
 require_relative 'term'
 
-module Tui
+module Tui module Core
 
   # User Interface component for a single navigation tree node. Each node is
   # associated with a container or an object instance from the ::Model
@@ -249,5 +249,6 @@ module Tui
 
   end # TreeNode
 
+end # ::Core
 end # ::Tui
 

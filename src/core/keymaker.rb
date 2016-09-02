@@ -3,7 +3,7 @@
 
 require 'set'
 
-module Tui
+module Tui module Core
 
   # n-ary tree based key determination structure. When all subnodes are
   # inserted, their names are shortened so that each has a unique key of
@@ -118,5 +118,6 @@ module Tui
 
   end # KeyMaker
 
+end # ::Core
 end # ::Tui
 

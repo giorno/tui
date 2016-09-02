@@ -5,7 +5,7 @@
 require 'io/console'
 
 # Primitives to control the terminal output.
-module Tui module Term
+module Tui module Core module Term
 
   KEY_RETURN     = "\r"
   KEY_ESCAPE     = "\e"
@@ -74,5 +74,6 @@ module Tui module Term
   def self.termw; return `/usr/bin/env tput cols`.to_i; end
 
 end # ::Term
+end # ::Core
 end # ::Tui
 

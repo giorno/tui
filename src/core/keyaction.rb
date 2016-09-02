@@ -1,7 +1,7 @@
 
 # vim: et
 
-module Tui
+module Tui module Core
 
   # Representation of a single key action.
   class KeyAction
@@ -26,5 +26,6 @@ module Tui
 
   end # KeyAction
 
+end # ::Core
 end # ::Tui
 

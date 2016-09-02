@@ -1,14 +1,14 @@
 
 # vim: et
 
-require_relative 'term'
-require_relative 'treenode'
+require_relative 'core/term'
+require_relative 'core/treenode'
 
 module Tui
 
   # Tree structure displayed in the CLI, the parent node of all branches and
   # leaves.
-  class Tree < TreeNode
+  class Tree < Core::TreeNode
 
     # Constructor.
     public
@@ -22,9 +22,9 @@ module Tui
 
     # Disable cursor and navigate into the root tree node.
     def navigate
-      Tui::Term.cursor false
+      Tui::Core::Term.cursor false
       super
-      Tui::Term.cursor true
+      Tui::Core::Term.cursor true
     end
   end # Tree
 
