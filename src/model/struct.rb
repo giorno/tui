@@ -12,9 +12,7 @@ module Tui module Model
 
     # Constructor.
     #
-    # @param label [String] enum name
-    # @param options [Hash] map of enum options
-    # @param value [String] option name for currently set value
+    # @param label [String] struct name
     public
     def initialize ( label )
       super( label )
