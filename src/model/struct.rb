@@ -47,6 +47,8 @@ module Tui module Model
       return true
     end # valid?
 
+    # Overrides the parent and is expected to be overridden in the subclass.
+    #
     # @override
     public
     def to_s
