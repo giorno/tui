@@ -27,6 +27,12 @@ module Tui
       end
     end # instantiate
 
+    # Revert to the behaviour of the generic tree node.
+    protected
+    def label ( filter, filterinf, key, count )
+      return Core::TreeNode.instance_method( :label ).bind( self ).call( filter, filterinf, key, count )
+    end # label
+
     # Repopulate the subtree should the list of options has changed.
     public
     def refresh
