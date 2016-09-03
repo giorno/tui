@@ -38,7 +38,6 @@ module Tui
       public
       def navigate
         @model.model.value = @model.label
-        @model.label = @model.label
         @parent.done = true
         return true
       end # navigate
