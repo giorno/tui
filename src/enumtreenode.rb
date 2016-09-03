@@ -56,7 +56,7 @@ module Tui
     # Revert to the behaviour of the generic tree node.
     public
     def navigate
-      # call grandparent since this needs the bahviour of an ordinary tree node
+      # call grandparent since this needs the behaviour of an ordinary tree node
       Core::TreeNode.instance_method( :navigate ).bind( self ).call
       return true
     end # navigate
