@@ -50,7 +50,7 @@ module Tui module Model
     # @override
     public
     def to_s
-      return ''
+      return @label.to_s
     end # to_s
 
   end # Struct
