@@ -10,7 +10,7 @@ module Tui
 
     # Pseudo-model representing a single enum value.
     class Proxy
-      attr_accessor :model, :label, :ro
+      attr_accessor :model, :label, :ro, :disabled
 
       # Constructor.
       # @param model [EnumProperty] property to proxy
@@ -20,12 +20,13 @@ module Tui
         @model = model
         @label = option
         @ro = false # @todo does it ever make sense to be true?
+        @disabled = false
       end # initialize
 
       # Inherit the model behaviour.
       public
       def to_s
-        return @model.options[@label]
+        return @model.options[@label].to_s
       end # to_s
 
     end # Proxy

@@ -160,7 +160,7 @@ module Tui module Core
       subset = Array.new
       if collapsed and recurse
         @nodes.each do |node|
-          if node.key.start_with?( @filter )
+          if not node.model.disabled and node.key.start_with?( @filter )
             subset << node
           end
         end
