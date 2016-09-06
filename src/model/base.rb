@@ -5,7 +5,7 @@ module Tui module Model
 
   # Base model.
   class Base
-    attr_accessor :label, :ro
+    attr_accessor :label, :ro, :disabled
     attr_reader :value
 
     # Constructor
@@ -18,6 +18,7 @@ module Tui module Model
       @label = label
       @value = value
       @ro = ro
+      @disabled = false
     end # initialize
 
     # Setter with extra check for the value.

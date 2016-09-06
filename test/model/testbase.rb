@@ -57,5 +57,13 @@ class BaseModelTestCase < Test::Unit::TestCase
     assert_equal( "Model 'lab1' is read-only", ex.message )
   end # test_ro
 
+  # Test the 'disabled' flag
+  def test_disabled
+    base = RoBaseIf.new( 'lab1', '' )
+    assert_equal false, base.disabled
+    base.disabled = true
+    assert_equal true, base.disabled
+  end # test_disabled
+
 end # BaseModelTestCase
 
