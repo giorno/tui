@@ -23,10 +23,11 @@ module Tui
         @disabled = false
       end # initialize
 
-      # Inherit the model behaviour.
+      # Inherit the model behaviour. Enum value is represented to the outside
+      # by option name
       public
       def to_s
-        return @model.options[@label].to_s
+        return @label.to_s
       end # to_s
 
     end # Proxy

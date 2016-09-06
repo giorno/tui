@@ -37,6 +37,18 @@ module Tui module Model
       return @formatter.call( @value )
     end # to_s
 
+    # Set option by its value
+    public
+    def set_by_value ( value )
+      @options.each do |opt, val|
+        if val == value
+          @value = opt
+          return
+        end
+      end
+      raise "Unknown value '%s'" % value.to_s
+    end # set_by_value
+
   end # Enum
 
 end # ::Model
