@@ -118,6 +118,7 @@ module Tui module Core
         end
         @nodes.each do |node|
           node.key = inverse[@idr.call( node.model )]
+          raise "Broken key in TreeNode::kassign()" unless not node.key.nil?
         end
         @keymaker = nil
       end

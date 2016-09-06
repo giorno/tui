@@ -13,7 +13,7 @@ module Tui
     def refresh
       @nodes.clear
       @model.containees.each do |containee|
-        raise "Unsupported class '%s'" % containee.class unless containee.class == Tui::Model::Struct
+        raise "Unsupported class '%s'" % containee.class unless containee.is_a? Tui::Model::Struct
         instantiate containee
       end
     end # refresh
