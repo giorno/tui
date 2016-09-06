@@ -1,7 +1,12 @@
 
 # vim: et
 
+require_relative 'containertreenode'
+require_relative 'enumtreenode'
+require_relative 'integertreenode'
 require_relative 'modeltreenode'
+require_relative 'stringtreenode'
+require_relative 'structtreenode'
 
 module Tui
 
