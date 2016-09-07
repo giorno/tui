@@ -1,6 +1,7 @@
 
 # vim: et
 
+require_relative 'booleantreenode'
 require_relative 'containertreenode'
 require_relative 'enumtreenode'
 require_relative 'integertreenode'
@@ -19,6 +20,8 @@ module Tui
     def instantiate ( model )
       if model.is_a? Model::Integer
         self << IntegerTreeNode.new( model, @idr )
+      elsif model.is_a? Model::Boolean
+        self << BooleanTreeNode.new( model, @idr )
       elsif model.is_a? Model::String
         self << StringTreeNode.new( model, @idr )
       elsif model.is_a? Model::Enum
