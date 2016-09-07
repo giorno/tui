@@ -54,7 +54,14 @@ module Tui module Core
           if @nodes.length == 1 and subnode.item.nil?
             @nodes = subnode.nodes
           end
-        end 
+          if subnode.nodes.include?( edge ) and not subnode.item.nil?
+            # create and artificial branch to avoid losing the item when
+            # calculating the keys
+            subnode.nodes['.'] = Node.new
+            subnode.nodes['.'].item = subnode.item
+            subnode.item = nil
+          end
+        end
       end # collapse
 
       # Recursively generate key:item pairs
@@ -64,13 +71,15 @@ module Tui module Core
       public
       def make ( edges, map )
         @nodes.each do |edge, node|
-          # push new edge on the stack and visit subtre
+          # push new edge on the stack and visit subtree
           newedges = edges
-          if @nodes.length > 1 then newedges += edge end
+          if @nodes.length > 1 or not @item.nil? then newedges += edge end
           node.make( newedges, map )
           # (pseudo)leaf node
           if not node.item.nil?
-            if node.nodes.length > 1 then newedges += edge end
+            if node.nodes.length > 0 then newedges += edge end
+            print edge
+            puts ": " + newedges
             map[newedges] = node.item
           end
         end
@@ -81,7 +90,7 @@ module Tui module Core
       # @return [String]
       public
       def to_s
-        result = "\n0"
+        result = "\n%d" % ( @item.nil? ? 0 : 1 )
         @nodes.each do |edge, node|
           result += "\n " + edge
           result += node.to_s # recurse

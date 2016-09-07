@@ -25,10 +25,10 @@ class KeyMakerTestCase < Test::Unit::TestCase
     km << 'nic1'
     km << 'cdrom'
     keys = km.make
-    assert keys.has_key?( 'co' )
-    assert keys.has_key?( 'cp' )
-    assert keys.has_key?( 'n' )
-    assert keys.has_key?( 'cd' )
+    assert keys.has_key?( 'co' ), keys.to_s
+    assert keys.has_key?( 'cp' ), keys.to_s
+    assert keys.has_key?( 'n' ), keys.to_s
+    assert keys.has_key?( 'cd' ), keys.to_s
 
     km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
     km << 'cor'
@@ -43,17 +43,17 @@ class KeyMakerTestCase < Test::Unit::TestCase
     km << 'nic'
     km << 'therm_1'
     keys = km.make
-    assert keys.has_key?( 'co1' )
-    assert keys.has_key?( 'co2' )
-    assert keys.has_key?( 'co3' )
-    assert keys.has_key?( 'co4' )
-    assert keys.has_key?( 'cor' )
-    assert keys.has_key?( 'cpc1' )
-    assert keys.has_key?( 'cpc2' )
-    assert keys.has_key?( 'cp1' )
-    assert keys.has_key?( 'cp2' )
-    assert keys.has_key?( 'n' )
-    assert keys.has_key?( 't' )
+    assert keys.has_key?( 'co1' ), keys.to_s
+    assert keys.has_key?( 'co2' ), keys.to_s
+    assert keys.has_key?( 'co3' ), keys.to_s
+    assert keys.has_key?( 'co4' ), keys.to_s
+    assert keys.has_key?( 'cor' ), keys.to_s
+    assert keys.has_key?( 'cpc1' ), keys.to_s
+    assert keys.has_key?( 'cpc2' ), keys.to_s
+    assert keys.has_key?( 'cp1' ), keys.to_s
+    assert keys.has_key?( 'cp2' ), keys.to_s
+    assert keys.has_key?( 'n' ), keys.to_s
+    assert keys.has_key?( 't' ), keys.to_s
   end # test_keys
 
   # Test the lambda passed to extract the label.
@@ -65,25 +65,22 @@ class KeyMakerTestCase < Test::Unit::TestCase
     km << [ 'nic1' ]
     km << [ 'cdrom' ]
     keys = km.make
-    assert keys.has_key?( 'co' )
-    assert keys.has_key?( 'cp' )
-    assert keys.has_key?( 'n' )
-    assert keys.has_key?( 'cd' )
+    assert keys.has_key?( 'co' ), keys.to_s
+    assert keys.has_key?( 'cp' ), keys.to_s
+    assert keys.has_key?( 'n' ), keys.to_s
+    assert keys.has_key?( 'cd' ), keys.to_s
   end # test_lambda
 
   # Raise an exception when invalid label character is entered
   def test_valid
     km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
-    #assert_throw( RuntimeError.new, "Not thrown" ) do km << 'cor 1' end
-    assert_raise RuntimeError do
-      km << 'cor 1'
-    end
-    assert_raise RuntimeError do
-      km << 'cor\1'
-    end
+    ex = assert_raise( RuntimeError ) { km << 'cor 1'; }
+    assert_equal( "Invalid edge character ' '", ex.message )
+    ex = assert_raise( RuntimeError ) { km << 'cor\1'; }
+    assert_equal( "Invalid edge character '\\'", ex.message )
     km << 'abcdefghijklmnopqrstuvwxyz0123456789-_'
     keys = km.make
-    assert keys.has_key?( 'a' )
+    assert keys.has_key?( 'a' ), keys.to_s
     assert keys.length == 1
   end # test_valid
 
@@ -92,12 +89,41 @@ class KeyMakerTestCase < Test::Unit::TestCase
     km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
     km << 'core1'
     keys = km.make
-    assert keys.has_key?( 'c' )
+    assert keys.has_key?( 'c' ), keys.to_s
     assert keys.length == 1
-    assert_raise RuntimeError do
-      km.make
-    end
+    ex = assert_raise( RuntimeError ) { km.make; }
+    assert_equal( "Keys already generated, reinitialize the maker", ex.message )
   end # test_made
+
+  # Test that when one label is a prefix of another, it will not get discarded
+  # and that artificial suffix in the form of the dot character is appended.
+  def test_broken_prefix
+    km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
+    km << 'cor'
+    km << 'core1'
+    keys = km.make
+    assert_equal 2, keys.length
+    assert keys.has_key?( 'r' ), keys.to_s
+    assert keys.has_key?( '1' ), keys.to_s
+    km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
+    km << 'cor'
+    km << 'core1'
+    km << 'core2'
+    keys = km.make
+    assert_equal 3, keys.length
+    assert keys.has_key?( '1' ), keys.to_s
+    assert keys.has_key?( '2' ), keys.to_s
+    assert keys.has_key?( 'r' ), keys.to_s
+    km = Tui::Core::KeyMaker.new( lambda { |i| return i } )
+    km << 'cor'
+    km << 'corr'
+    km << 'core2'
+    keys = km.make
+    assert_equal 3, keys.length
+    assert keys.has_key?( '.' ), keys.to_s
+    assert keys.has_key?( 'r' ), keys.to_s
+    assert keys.has_key?( 'e' ), keys.to_s
+  end # test_broken_prefix
 
 end # KeyMakerTestCase
 
