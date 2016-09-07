@@ -21,7 +21,7 @@ module Tui module Model
       super( label, value )
       @options = options # @todo validate that all keys are Strings
       self.value = value # validation step
-      @formatter = lambda { |v| return @options[@value].to_s }
+      @formatter = lambda { |v| return @value.to_s }
     end # initialize
 
     # Check if the provided value is indeed a valid option name.

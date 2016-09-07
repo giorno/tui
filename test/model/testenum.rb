@@ -19,7 +19,7 @@ class EnumModelTestCase < Test::Unit::TestCase
   def test_assign
     base = Tui::Model::Enum.new( 'lab1', { 'val1' => '1', 'val99' => '99' }, 'val99' )
     base.value = 'val1'
-    assert_true base.to_s == '1'
+    assert_true base.to_s == 'val1'
   end # test_assign
 
   # Test the validation method.
