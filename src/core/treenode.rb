@@ -245,7 +245,7 @@ module Tui module Core
         c = Tui::Core::Term::getk
         if onkeypress c then return end
         @nodes.each do |node|
-          if node.key == @filter
+          if node.key == @filter and not node.model.disabled
             node.navigate
             @filter = ''
           end
