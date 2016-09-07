@@ -78,8 +78,6 @@ module Tui module Core
           # (pseudo)leaf node
           if not node.item.nil?
             if node.nodes.length > 0 then newedges += edge end
-            print edge
-            puts ": " + newedges
             map[newedges] = node.item
           end
         end
