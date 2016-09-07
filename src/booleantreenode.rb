@@ -11,7 +11,7 @@ module Tui
     # By choosing this option we toggle the value.
     #
     # @overriden
-    protected
+    public
     def navigate
       @model.toggle
     end # navigate
