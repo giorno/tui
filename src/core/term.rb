@@ -55,6 +55,32 @@ module Tui module Core module Term
     return [ ( c == KEY_RETURN ), buf ]
   end # self.gets
 
+  # Print question and ask for confirmation.
+  #
+  # @param message [String] question
+  # @param default [String] 'y' or 'n' to set the default answer (when Enter is pressed)
+  # @return nil if Escape key pressed, true if 'y', false if 'n'
+  def self.confirm ( message, default = 'n' )
+    cursor true
+    n = 'n'
+    y = 'y'
+    if default.downcase == 'n' then n = 'N'
+    elsif default.downcase == 'y' then n = 'Y'
+    else raise "Invalid confirmation default: '%s'" % default end
+    print "%s Proceed? [%s/%s] " % [ message, y, n ]
+    c = ''
+    while c != 'y' and c != 'n'
+      c = getk.downcase
+      if c == KEY_ESCAPE
+        return nil
+      elsif c == KEY_RETURN
+        c = default
+      end
+    end
+    cursor false
+    return c == y
+  end # confirm
+
   # Clear the screen and move the cursor to the top left corner
   def self.clrscr ( )
     print "\e[1J"

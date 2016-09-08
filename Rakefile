@@ -12,6 +12,7 @@ task :test do
 
   # core classes
   ruby "test/core/testkeymaker.rb"
+  ruby "test/core/testterm.rb"
   ruby "test/core/testtreenode.rb"
 
   # Views
