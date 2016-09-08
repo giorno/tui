@@ -35,5 +35,11 @@ class StructModelTestCase < Test::Unit::TestCase
     assert_equal( 'val2', struct['str2'].value )
   end # test_bracket_operator
 
+  def test_parent
+    struct = Tui::Model::Struct.new( 'lab1' )
+    struct << Tui::Model::String.new( 'str1', 'val1' )
+    assert_equal( struct, struct['str1'].parent )
+  end # test_parent
+
 end # StructModelTestCase
 

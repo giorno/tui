@@ -25,6 +25,7 @@ module Tui module Model
     # @todo enforce the type
     public
     def << ( attribute )
+      attribute.parent = self
       @attributes[attribute.label] = attribute
     end # <<
 

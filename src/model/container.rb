@@ -7,7 +7,7 @@ module Tui module Model
 
   # Model for container like objects. Essentially a list of objects.
   class Container < Base
-    attr_accessor :containees
+    attr_reader :containees
 
     # Constructor.
     #
@@ -17,6 +17,15 @@ module Tui module Model
       super( label )
       @containees = Array.new
     end # initialize
+
+    # 'Official' interface to insert new entry.
+    #
+    # @param containee [Base] new container entry
+    public
+    def << ( containee )
+      containee.parent = self
+      @containees << containee
+    end # <<
 
     # Value is irrelevant in the container.
     # @override
