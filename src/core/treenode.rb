@@ -92,7 +92,18 @@ module Tui module Core
       @nodes << node
       node.parent = self
       node.depth = node.parent.depth + 1 # cache the depth
-      if @keymaker.nil? then @keymaker = Tui::Core::KeyMaker.new( node.idr ) end # lazy initialization
+      if @keymaker.nil?
+        @keymaker = Tui::Core::KeyMaker.new( node.idr )
+        # We need to regenerate keys since we are adding a new node into an
+        # existing scheme.
+        if @nodes.length > 1
+          @nodes.each do |subnode|
+            if node != subnode
+              @keymaker << subnode.model
+            end
+          end
+        end
+      end # lazy initialization
       @keymaker << node.model
     end # append
 

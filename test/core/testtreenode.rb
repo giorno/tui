@@ -12,10 +12,17 @@ class TreeNodeTestCase < Test::Unit::TestCase
 
   # Expose certain protected interfaces.
   class TreeNodeIf < Tui::Core::TreeNode
+
     public
     def label ( filter, filterinf, key, count )
       return super
-    end
+    end # label
+
+    public
+    def kassign
+      return super
+    end # kassign
+
   end # TreeNodeIf
 
   # Simple data model to use in a TreeNode.
@@ -46,6 +53,17 @@ class TreeNodeTestCase < Test::Unit::TestCase
     node = TreeNodeIf.new( DummyModel.new( 'Mary' ), lambda { |i| return 'Lamb' } )
     assert node.label( '', true, false, false ) == 'Lamb'
   end # test_idr
+
+  # Test that key assignment is restarted when a new element is added.
+  def test_kreassign
+    node = TreeNodeIf.new( DummyModel.new( 'parent' ) )
+    node << TreeNodeIf.new( DummyModel.new( 'child1' ) )
+    node.kassign
+    node << TreeNodeIf.new( DummyModel.new( 'child2' ) )
+    assert_nothing_raised RuntimeError do
+      node.kassign
+    end
+  end # test_kreassign
 
 end # TreeNodeTestCase
 
