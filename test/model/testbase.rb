@@ -30,9 +30,15 @@ class BaseModelTestCase < Test::Unit::TestCase
     base = Tui::Model::Base.new( 'lab1' )
     assert base.label == 'lab1'
     assert base.value.nil?
+    assert_equal false, base.modified
+    assert base.parent.nil?
 
     base.label = 'lab2'
     assert base.label == 'lab2'
+    base.modified = true
+    assert_equal true, base.modified
+    base.parent = self
+    assert_equal self, base.parent
   end # test_accessors
 
   # Test display string rendering.
@@ -64,6 +70,18 @@ class BaseModelTestCase < Test::Unit::TestCase
     base.disabled = true
     assert_equal true, base.disabled
   end # test_disabled
+
+  # Test the 'modified' flag
+  def test_modified
+    parent = RoBaseIf.new( 'parent', '' )
+    base = RoBaseIf.new( 'lab1', '' )
+    base.parent = parent
+    assert_equal false, parent.modified
+    assert_equal false, base.modified
+    base.value = 'A'
+    assert_equal true, parent.modified
+    assert_equal true, base.modified
+  end # test_modified
 
 end # BaseModelTestCase
 
