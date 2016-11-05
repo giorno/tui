@@ -9,6 +9,7 @@ module Tui
 
   # Tree node representing a single model.
   class ModelTreeNode < Core::TreeNode
+    MAX_VAL_CHARS = 32
 
     # Append the property value to the label and do not render the key on RO
     # models.
@@ -18,7 +19,11 @@ module Tui
       if val.empty?
         result += '<empty>'.gray42
       else
-        result += val
+        # Display at most MAX_VAL_CHARS characters, flatten multilines
+        result += val.gsub( "\n", " " )[0..MAX_VAL_CHARS]
+        if val.length > MAX_VAL_CHARS
+          result += '...' # and add trailing ellipsis for longer values
+        end
       end
       return result
     end # label
