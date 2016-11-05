@@ -32,5 +32,12 @@ class StringModelTestCase < Test::Unit::TestCase
     assert_equal( 'Invalid value for model type Tui::Model::String!', ex.message )
   end # test_valid?
 
+  # Miscellaneous object properties test.
+  def test_properties
+    str = Tui::Model::String.new( 'lab1', '', true, true )
+    assert_equal true, str.ro
+    assert_equal true, str.multiline
+  end # test_properties
+
 end # StringModelTestCase
 

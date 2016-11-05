@@ -23,6 +23,7 @@ tree = Tui::Tree.new( 'variables', idr )
   tree << Tui::EnumTreeNode.new( Tui::Model::Enum.new( 'enum-model-node', { 'opt1' => 'val1', 'opt2' => 'val2', 'opt3' => 'val3' }, 'opt1' ), idr )
   tree << Tui::IntegerTreeNode.new( Tui::Model::Integer.new( 'integer-model-node', 42 ), idr )
   tree << Tui::StringTreeNode.new( Tui::Model::String.new( 'string-model-node', 'Lorem ipsum' ), idr )
+  tree << Tui::StringTreeNode.new( Tui::Model::String.new( 'multiline-string-model-node', 'dolor sit', false, true ), idr )
 
   struct = Tui::Model::Struct.new( 'struct-model-node' )
     struct << Tui::Model::Integer.new( 'ro-id', -1, true )
