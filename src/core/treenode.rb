@@ -206,7 +206,7 @@ module Tui module Core
         end
         il = InfoLine.new
         if @model.nil? then il.shortcut( '←', 'quit' ) else il.shortcut( '←', 'back' ) end
-        if not @filter.empty? then il.shortcut( 'del', 'reset' ) end
+        if not @filter.empty? then il.shortcut( 'Del', 'reset' ) end
         @actions.each do |key, action|
           if action.pred.call() then il.shortcut( action.symbol, action.desc ) end
         end
