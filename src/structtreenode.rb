@@ -22,6 +22,8 @@ module Tui
         self << IntegerTreeNode.new( model, @idr )
       elsif model.is_a? Model::Boolean
         self << BooleanTreeNode.new( model, @idr )
+      elsif model.is_a? Model::Float
+        self << BooleanTreeNode.new( model, @idr )
       elsif model.is_a? Model::String
         self << StringTreeNode.new( model, @idr )
       elsif model.is_a? Model::Enum
