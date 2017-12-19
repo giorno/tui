@@ -5,6 +5,7 @@ require_relative 'booleantreenode'
 require_relative 'containertreenode'
 require_relative 'enumtreenode'
 require_relative 'integertreenode'
+require_relative 'floattreenode'
 require_relative 'modeltreenode'
 require_relative 'stringtreenode'
 require_relative 'structtreenode'
@@ -21,9 +22,9 @@ module Tui
       if model.is_a? Model::Integer
         self << IntegerTreeNode.new( model, @idr )
       elsif model.is_a? Model::Boolean
-        self << FloatTreeNode.new( model, @idr )
-      elsif model.is_a? Model::Float
         self << BooleanTreeNode.new( model, @idr )
+      elsif model.is_a? Model::Float
+        self << FloatTreeNode.new( model, @idr )
       elsif model.is_a? Model::String
         self << StringTreeNode.new( model, @idr )
       elsif model.is_a? Model::Enum
