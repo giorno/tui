@@ -40,5 +40,18 @@ class EnumModelTestCase < Test::Unit::TestCase
     assert_equal( '256', enum.to_s )
   end # test_formatter
 
+  def test_set_by_value
+    enum = Tui::Model::Enum.new( 'enum1', {  '1' => 2, '2' => 4, '3' => 8 }, '1' )
+    enum.set_by_value( 8 )
+    assert_equal( '3', enum.to_s )
+  end # test_set_by_value
+
+  def test_current
+    enum = Tui::Model::Enum.new( 'enum1', {  '1' => 2, '2' => 4, '3' => 8 }, '1' )
+    assert_equal( 2, enum.current )
+    enum.value = '3'
+    assert_equal( 8, enum.current )
+  end # test_current
+
 end # EnumModelTestCase
 

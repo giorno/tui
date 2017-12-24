@@ -49,6 +49,12 @@ module Tui module Model
       raise "Unknown value '%s'" % value.to_s
     end # set_by_value
 
+    # Get the current option value
+    public
+    def current
+      return @options[@value]
+    end # current
+
   end # Enum
 
 end # ::Model
