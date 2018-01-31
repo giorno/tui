@@ -27,7 +27,7 @@ module Tui module Model
     # @overriden
     public
     def from_s ( value )
-      @value = Float( value )
+      self.value= Float( value )
     end # from_s
 
   end # Float

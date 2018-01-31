@@ -27,7 +27,7 @@ module Tui module Model
     # @overriden
     public
     def from_s ( value )
-      @value = Integer( value )
+      self.value= Integer( value )
     end # from_s
 
   end # Integer
