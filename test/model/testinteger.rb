@@ -32,5 +32,11 @@ class IntegerModelTestCase < Test::Unit::TestCase
     assert_equal( 'Invalid value for model type Tui::Model::Integer!', ex.message )
   end # test_valid?
 
+  def test_from_s
+    base = Tui::Model::Integer.new( 'lab1', 1 )
+    base.from_s '2'
+    assert_equal 2, base.value
+  end # test_from_s
+
 end # IntegerModelTestCase
 

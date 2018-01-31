@@ -83,5 +83,11 @@ class BaseModelTestCase < Test::Unit::TestCase
     assert_equal true, base.modified
   end # test_modified
 
+  def test_from_s
+    base = Tui::Model::Base.new( 'lab1' )
+    base.from_s 'lab2'
+    assert_equal 'lab2', base.value
+  end # test_from_s
+
 end # BaseModelTestCase
 

@@ -28,18 +28,6 @@ module Tui
       return result
     end # label
 
-    # Convert a string value into a value in the type belonging to the
-    # underlying model.
-    #
-    # Override in subclass.
-    #
-    # @param from [String] input string
-    # @return [Mixed]
-    protected
-    def from_s( from )
-      return from
-    end # from_s
-
     public
     def navigate
       # do not edit RO properties
@@ -47,7 +35,7 @@ module Tui
       done, value = Tui::Core::Term.gets @model.label.to_s + '> '
       if done
         begin
-          @model.value = from_s( value )
+          @model.from_s( value )
         rescue ArgumentError => ex
           # @todo implement error signalling
         end

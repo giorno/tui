@@ -55,6 +55,12 @@ module Tui module Model
       raise "Method %s::valid? not implemented!" % self.class
     end # valid?
 
+    # Import the value from a string input. Override in subclasses.
+    public
+    def from_s ( value )
+      @value = value
+    end # from_s
+
   end # Base
 
 end # ::Model

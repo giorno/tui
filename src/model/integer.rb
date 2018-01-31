@@ -24,6 +24,12 @@ module Tui module Model
       return value.is_a? ::Integer
     end # valid?
 
+    # @overriden
+    public
+    def from_s ( value )
+      @value = Integer( value )
+    end # from_s
+
   end # Integer
 
 end # ::Model

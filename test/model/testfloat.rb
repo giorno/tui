@@ -32,5 +32,11 @@ class FloatModelTestCase < Test::Unit::TestCase
     assert_equal( 'Invalid value for model type Tui::Model::Float!', ex.message )
   end # test_valid?
 
+  def test_from_s
+    base = Tui::Model::Float.new( 'lab1', 1.1 )
+    base.from_s '1.2'
+    assert base.value == 1.2
+  end # test_from_s
+
 end # FloatModelTestCase
 

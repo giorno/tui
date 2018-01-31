@@ -24,6 +24,12 @@ module Tui module Model
       return value.is_a? ::Float
     end # valid?
 
+    # @overriden
+    public
+    def from_s ( value )
+      @value = Float( value )
+    end # from_s
+
   end # Float
 
 end # ::Model
